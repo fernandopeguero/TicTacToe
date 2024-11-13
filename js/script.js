@@ -50,7 +50,6 @@ function Cell() {
     return {
         addToken,
         getValue,
-        placeToken
     }
 
 }
