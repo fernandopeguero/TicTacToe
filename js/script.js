@@ -27,7 +27,7 @@ function GameBoard() {
     const placeToken = (position, token) => {
         const valueAtBoardPosition = board[position.row][position.column];
 
-        if(valueAtBoardPosition === 0) return;
+        if(valueAtBoardPosition.getValue() != 0) return -1;
         valueAtBoardPosition.addToken(token)
     }
 
@@ -99,15 +99,20 @@ function GameController(
 
         if(Object.keys(position).length === 0) return;
 
-        board.placeToken(position, activePlayer.token);
+        const tokenPlaced = board.placeToken(position, activePlayer.token);
+
+        if(tokenPlaced === -1) return;
+        board.printBoard();
+        winner = checkWinner();
         // switch player 
         switchPlayer();
         // reset board
-        board.printBoard();
-        winner = checkWinner();
+        
+       
     }
 
     const checkWinner = () => {
+        const flatBoard = board.getBoard().flat().map(cell => cell.getValue())
         const winningCombinations = [
             [0, 1, 2],
             [3, 4, 5],
@@ -121,7 +126,8 @@ function GameController(
         
           for (const combination of winningCombinations) {
             const [a, b, c] = combination;
-            if (board[a] && board[a] === board[b] && board[b] === board[c]) {
+            if (flatBoard[a] && flatBoard[a] === flatBoard[b] && flatBoard[b] === flatBoard[c]) {
+                console.log(`You Won, ${activePlayer.name} with ${activePlayer.token} token`)
               return `${activePlayer.token}'s the winner`;
                 // Return the winning symbol ('X' or 'O')
             }
@@ -134,7 +140,8 @@ function GameController(
     return {
         getActivePlayer,
         getBoard: board.getBoard,
-        playRound
+        playRound,
+        getWinner
         
     }
 }
