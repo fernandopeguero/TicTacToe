@@ -17,16 +17,18 @@ function GameBoard() {
 
     const getBoard = () => board;
 
-    /* Print  */
+    /* Print board */
     const printBoard = () => {
         const boardWithCellValues = board.map((row) => row.map((cell) => cell.getValue()))
         console.log(boardWithCellValues);
       };
 
-
+    //   palces token in the board
     const placeToken = (position, token) => {
-        board[position.row, position.column].addToken(token)
+        const valueAtBoardPosition = board[position.row][position.column];
 
+        if(valueAtBoardPosition === 0) return;
+        valueAtBoardPosition.addToken(token)
     }
 
       return {
@@ -57,7 +59,9 @@ function Cell() {
 
 function GameController(
     playerOne = "Player One",
-    playerTwo = "Player Two"
+    playerTwo = "Player Two",
+    tokenOne = "X",
+    tokenTwo = "O"
 ){
 
     const board = GameBoard();
@@ -65,11 +69,11 @@ function GameController(
     const players =  [
         {
             name: playerOne,
-            token: "X"
+            token: tokenOne
         } , 
         {
             name: playerTwo,
-            token: "O"
+            token: tokenTwo
         }
     ]
 
@@ -87,14 +91,23 @@ function GameController(
         console.log(`${activePlayer.name}'s turn`);
     }
 
-    const playRound = (position) => {
+    const playRound = (position = {}) => {
 
+        if(Object.keys(position).length === 0) return;
+
+        board.placeToken(position, activePlayer.token);
+        // switch player 
+        switchPlayer();
+        // reset board
+        board.printBoard();
     }
 
 
 
     return {
         getActivePlayer,
+        getBoard: board.getBoard,
+        playRound
         
     }
 }
@@ -109,4 +122,4 @@ function ClickHandler() {
 }
 
 
-const game = GameBoard()
+const game = GameController()
