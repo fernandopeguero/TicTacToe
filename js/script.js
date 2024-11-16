@@ -6,14 +6,18 @@ function GameBoard() {
     const columns = 3;
     const board = [];
 
-
-    /* Create board grid */
-    for(let i = 0; i < rows; i++){
-        board[i] = []
-        for(let j =0; j < columns; j++){
-            board[i].push(Cell())    
+    const createBoard = () => {
+            /* Create board grid */
+        for(let i = 0; i < rows; i++){
+            board[i] = []
+            for(let j =0; j < columns; j++){
+                board[i].push(Cell())    
+            }
         }
+
     }
+
+    createBoard()
 
     const getBoard = () => board;
 
@@ -34,7 +38,8 @@ function GameBoard() {
       return {
         getBoard,
         printBoard,
-        placeToken
+        placeToken,
+        createBoard
       }
 }
 
@@ -65,7 +70,6 @@ function GameController(
 ){
 
     const board = GameBoard();
-    let winner = "";
 
     let isGameOver = false;
 
@@ -104,12 +108,13 @@ function GameController(
         const tokenPlaced = board.placeToken(position, activePlayer.token);
 
         if(tokenPlaced === -1) return;
-        board.printBoard();
-        winner = checkWinner();
+        printNewRound()
+        isGameOver = checkWinner();
         // switch player 
         switchPlayer();
         // reset board
         
+        return true;
        
     }
 
@@ -130,13 +135,11 @@ function GameController(
             const [a, b, c] = combination;
             if (flatBoard[a] && flatBoard[a] === flatBoard[b] && flatBoard[b] === flatBoard[c]) {
                 console.log(`You Won, ${activePlayer.name} with ${activePlayer.token} token`)
-                isGameOver = true;
-                // Return the winning symbol ('X' or 'O')
-                return activePlayer.token
+                return  true;
             }
           }
 
-          return null;
+          return false;
     }
 
 
@@ -144,7 +147,8 @@ function GameController(
         getActivePlayer,
         getBoard: board.getBoard,
         playRound,
-        getGameOver 
+        getGameOver,
+        resetBoard: board.createBoard
         
     }
 }
@@ -180,16 +184,30 @@ function ScreenController () {
         }))
     }
 
+    const resetBoard = () => {
+        
+    }
+
     function ClickHandler (e)  {
 
         const selectedRow = e.target.dataset.row;
         const selectedColumn = e.target.dataset.column;
+        const activePlayer = game.getActivePlayer()
 
         if(!selectedRow) return;
         if(!selectedColumn) return;
 
+
+
         game.playRound({row: selectedRow, column: selectedColumn})
         updateScreen();
+
+        if(game.getGameOver()) {
+            displayTurn.textContent =  `You Won, player ${activePlayer.token}`;
+            console.log("Game is over");
+            return;
+        }
+        
 
     }
 
