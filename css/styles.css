@@ -24,16 +24,32 @@ html {
 
   body {
     height: 100vh;
-
+    font-size: 16px;
   }
 
-  h1 {
-    font-size: 56px;
-    text-align: center;
-  }
+
 
   body {
     height: 100vh;
+  }
+
+
+  :root {
+
+/* color palette */
+    --main-bg-color: #F96E2A;
+    --main-text-color: #FBF8EF;
+    --main-cell-color: #C9E6F0;
+    --main--cell-dark: #78B3CE;
+
+    /* padding */
+
+    --pd-small: 8px;
+    --pd-medium: 16px;
+    --pd-large: 24px;
+    --pd-huge: 36px
+
+
   }
 
 .container {
@@ -41,6 +57,8 @@ html {
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 2fr;
   height: 100%;
+
+
 }
 
 .player_display {
@@ -50,11 +68,40 @@ html {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+
+  h1 {
+    font-size: clamp(3rem, 0.0313rem + 9.5vw, 5.375rem);
+    text-align: center;
+    font-weight: bolder;
+    margin-bottom: var(--pd-large);
+  }
 
   .players {
     display: flex;
     justify-content: center;
     gap: 24px;
+    text-align: center;
+
+    /* .player {
+      display: flex;
+      flex-direction: column;
+      
+    } */
+
+    h2, h3 {
+      font-weight: bolder;
+    }
+
+    h2 {
+      font-size: clamp(1rem, -0.5625rem + 5vw, 2.25rem);
+    }
+
+    h3 {
+      font-size: clamp(1rem, -1.5rem + 8vw, 3rem);
+     
+    }
   }
 }
 
