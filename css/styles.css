@@ -71,6 +71,7 @@ html {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   background-color: var(--main-bg-color);
   color: var(--main-text-color);
   text-align: center;
@@ -84,6 +85,12 @@ html {
 
   .display_turn {
     margin-bottom: var(--pd-small);
+    background-color: var(--main-cell-dark);
+    max-width: max-content;
+    padding: var(--pd-small) var(--pd-large);
+    border-radius: 25px;
+    font-weight: bolder;
+    text-shadow: 0px 0px 5px #333333;
   }
 
   .players {
@@ -133,6 +140,8 @@ html {
     border-radius: 10px;
     background-color: var(--main-cell-color);
     border: none;
+    font-size: 36px;
+    font-weight: bolder;
   }
 
   .cell:hover {
