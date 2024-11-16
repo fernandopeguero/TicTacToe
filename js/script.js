@@ -41,7 +41,7 @@ function GameBoard() {
 
 function Cell() {
 
-    let value = 0;
+    let value = "";
 
     const addToken = (player ) => {
         value = player;
@@ -153,7 +153,34 @@ function GameController(
 function ScreenController () {
 
     const game = GameController();
+    const displayTurn = document.querySelector(".display_turn");
+    const boardContainer = document.querySelector(".board");
     
+
+    const updateScreen = () => {
+
+        boardContainer.textContent = "";
+
+
+        const board = game.getBoard()
+        const activePlayer = game.getActivePlayer();
+
+        displayTurn.textContent = `${activePlayer.name}'s turn`
+
+        board.forEach((row, i) => row.forEach((cell, j) => {
+
+            const button = document.createElement("button");
+            button.classList.add("cell");
+
+            button.dataset.row = i;
+            button.dataset.column = j;
+            button.textContent = cell.getValue();
+            boardContainer.appendChild(button);
+
+        }))
+    }
+
+    updateScreen();
 
 
 }
@@ -162,5 +189,4 @@ function ClickHandler() {
 
 }
 
-
-const game = GameController()
+ScreenController();
