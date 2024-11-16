@@ -67,7 +67,9 @@ function GameController(
     const board = GameBoard();
     let winner = "";
 
-    const getWinner = () => winner === "" ? "No winner yet" : winner;
+    let isGameOver = false;
+
+    const getGameOver = () => isGameOver
 
     const players =  [
         {
@@ -128,8 +130,9 @@ function GameController(
             const [a, b, c] = combination;
             if (flatBoard[a] && flatBoard[a] === flatBoard[b] && flatBoard[b] === flatBoard[c]) {
                 console.log(`You Won, ${activePlayer.name} with ${activePlayer.token} token`)
-              return `${activePlayer.token}'s the winner`;
+                isGameOver = true;
                 // Return the winning symbol ('X' or 'O')
+                return activePlayer.token
             }
           }
 
@@ -141,13 +144,17 @@ function GameController(
         getActivePlayer,
         getBoard: board.getBoard,
         playRound,
-        getWinner
+        getGameOver 
         
     }
 }
 
 
 function ScreenController () {
+
+    const game = GameController();
+    
+
 
 }
 
