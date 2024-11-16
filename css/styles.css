@@ -81,6 +81,7 @@ html {
     text-align: center;
     font-weight: bolder;
     margin-bottom: var(--pd-large);
+    animation: fade 2s forwards;
   }
 
   .display_turn {
@@ -91,6 +92,7 @@ html {
     border-radius: 25px;
     font-weight: bolder;
     text-shadow: 0px 0px 5px #333333;
+    animation: scaleUp 1s forwards;
   }
 
   .players {
@@ -110,6 +112,14 @@ html {
     h3 {
       font-size: clamp(1rem, -1.5rem + 8vw, 3rem);
      
+    }
+
+    .player_one_name {
+      animation: slideInRight 1s forwards ease;
+    }
+
+    .player_two_name {
+      animation: slideInLeft 1s forwards ease;
     }
   }
 }
@@ -152,4 +162,61 @@ html {
     background-color: var(--main-bg-color);
   }
 
+}
+
+
+/* Animations  */
+
+@keyframes fade {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+@keyframes scaleUp {
+
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(60px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+}
+
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(-60px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
