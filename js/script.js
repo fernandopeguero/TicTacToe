@@ -180,13 +180,26 @@ function ScreenController () {
         }))
     }
 
+    function ClickHandler (e)  {
+
+        const selectedRow = e.target.dataset.row;
+        const selectedColumn = e.target.dataset.column;
+
+        if(!selectedRow) return;
+        if(!selectedColumn) return;
+
+        game.playRound({row: selectedRow, column: selectedColumn})
+        updateScreen();
+
+    }
+
+    boardContainer.addEventListener("click", ClickHandler)
+    
+
     updateScreen();
 
 
 }
 
-function ClickHandler() {
-
-}
 
 ScreenController();
