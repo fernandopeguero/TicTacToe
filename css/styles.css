@@ -164,6 +164,20 @@ html {
 
 }
 
+/* Media queries  */
+
+@media (max-width: 500px){
+  .board_container {
+    .board {
+    
+      height: 70vw;
+    }
+
+  }
+  
+   
+}
+
 
 /* Animations  */
 
