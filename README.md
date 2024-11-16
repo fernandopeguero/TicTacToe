@@ -21,7 +21,6 @@ This is a Tic Tac Toe game built using the Factory Design Pattern and a modular 
 
     - Intuitive and visually appealing design for all age groups.
   
----
 ## Technologies Used
 - HTML for structuring the game.
 - CSS for styling and animations.
@@ -41,12 +40,12 @@ cd tic-tac-toe
 3. The first player to align three marks (horizontally, vertically, or diagonally) wins the round.
 4. Scores are updated after each round.
 5. Click "Restart" to reset the board or start a new match.
----
+
 ## Future Enhancements
 - Add AI Mode for single-player gameplay.
 - Include difficulty levels (easy, medium, hard).
 - Support for customizable grid sizes (e.g., 4x4 or 5x5).
----
+
 ##Contributing
 Feel free to contribute by submitting issues or pull requests. We welcome all suggestions and improvements!
 
