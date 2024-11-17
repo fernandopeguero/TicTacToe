@@ -159,6 +159,9 @@ function ScreenController () {
     const game = GameController();
     const displayTurn = document.querySelector(".display_turn");
     const boardContainer = document.querySelector(".board");
+
+    const startButton = document.querySelector(".start");
+    const restartButton = document.querySelector(".restart");
     
 
     const updateScreen = () => {
@@ -185,7 +188,8 @@ function ScreenController () {
     }
 
     const resetBoard = () => {
-        
+        game.resetBoard();
+        updateScreen();
     }
 
     function ClickHandler (e)  {
@@ -204,18 +208,14 @@ function ScreenController () {
 
         if(game.getGameOver()) {
             displayTurn.textContent =  `You Won, player ${activePlayer.token}`;
-            console.log("Game is over");
             return;
         }
-        
 
     }
 
     boardContainer.addEventListener("click", ClickHandler)
-    
-
-    updateScreen();
-
+    startButton.addEventListener("click", updateScreen)
+    resetBoard.addEventListener("click", resetBoard)
 
 }
 
