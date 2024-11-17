@@ -215,7 +215,7 @@ function ScreenController () {
 
     boardContainer.addEventListener("click", ClickHandler)
     startButton.addEventListener("click", updateScreen)
-    resetBoard.addEventListener("click", resetBoard)
+    restartButton.addEventListener("click", resetBoard)
 
 }
 
