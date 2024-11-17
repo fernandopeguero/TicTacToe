@@ -262,6 +262,7 @@ function ScreenController () {
         game.resetBoard();
         updateScoreBoard();
         updateScreen();
+        startButton.textContent = "START GAME";
     }
 
     function ClickHandler (e)  {
