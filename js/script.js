@@ -77,7 +77,7 @@ function ScoreKeeper () {
 
 
     const resetScore = () => {
-        score.round = 0;
+        score.round = 1;
         score.players[0] = 0
         score.players[1] = 0;
     }
