@@ -10,7 +10,7 @@ function GameBoard() {
             /* Create board grid */
         for(let i = 0; i < rows; i++){
             board[i] = []
-            for(let j =0; j < columns; j++){
+            for(let j = 0; j < columns; j++){
                 board[i].push(Cell())    
             }
         }
@@ -61,6 +61,48 @@ function Cell() {
 
 }
 
+function ScoreKeeper () {
+
+    const score = {
+        round: 1,
+        players: [0 , 0]
+    }
+
+    // get and update rounds 
+    const getRound = () => score.round
+    const updateRound = () => score.round++;
+    // get the score 
+    const getPlayerOneScore = () => score.players[0];
+    const getPlayerTwoScore = () => score.players[1];
+
+
+    const resetScore = () => {
+        score.round = 0;
+        score.players[0] = 0
+        score.players[1] = 0;
+    }
+
+    const playerOneScored = () => {
+        updateRound()
+        score.players[0]++;
+    }
+
+    const playerTwoScore = () => {
+        updateRound()
+        score.players[1]++;
+    }
+
+    return {
+        getRound,
+        getPlayerOneScore,
+        getPlayerTwoScore,
+        playerOneScored,
+        playerTwoScore,
+        resetScore
+    }
+
+}
+
 
 function GameController(
     playerOne = "Player One",
@@ -74,6 +116,8 @@ function GameController(
     let isGameOver = false;
 
     const getGameOver = () => isGameOver
+
+    const scoreBoard = ScoreKeeper();
 
     const players =  [
         {
@@ -135,11 +179,26 @@ function GameController(
             const [a, b, c] = combination;
             if (flatBoard[a] && flatBoard[a] === flatBoard[b] && flatBoard[b] === flatBoard[c]) {
                 console.log(`You Won, ${activePlayer.name} with ${activePlayer.token} token`)
+                if(activePlayer === players[0]){
+                    scoreBoard.playerOneScored()
+                } else {
+                    scoreBoard.playerTwoScore()
+                }
                 return  true;
             }
           }
 
           return false;
+    }
+
+    function resetScore () {
+        scoreBoard.resetScore()
+        isGameOver = false
+        board.createBoard()
+    }
+
+    function clearBoard() {
+        board.createBoard()
     }
 
 
@@ -148,7 +207,12 @@ function GameController(
         getBoard: board.getBoard,
         playRound,
         getGameOver,
-        resetBoard: board.createBoard
+        resetBoard: resetScore,
+        clearBoard: clearBoard,
+        round: scoreBoard.getRound,
+        playerOne: scoreBoard.getPlayerOneScore,
+        playertwo: scoreBoard.getPlayerTwoScore
+       
         
     }
 }
@@ -162,6 +226,11 @@ function ScreenController () {
 
     const startButton = document.querySelector(".start");
     const restartButton = document.querySelector(".restart");
+
+    // update score for each player 
+
+    const playerOneScoreBoard = document.querySelector(".player_one_score");
+    const playerTwoScoreBoard = document.querySelector(".player_two_score");
     
 
     const updateScreen = () => {
@@ -185,10 +254,13 @@ function ScreenController () {
             boardContainer.appendChild(button);
 
         }))
+
+
     }
 
     const resetBoard = () => {
         game.resetBoard();
+        updateScoreBoard();
         updateScreen();
     }
 
@@ -208,17 +280,41 @@ function ScreenController () {
 
         if(game.getGameOver()) {
             displayTurn.textContent =  `You Won, player ${activePlayer.token}`;
+
+            updateScoreBoard();
+
+            startButton.disabled = false;
+            const currentRound = game.round()
+            if( currentRound > 1) {
+                startButton.textContent = `START ROUND: ${currentRound}`
+            }
             return;
         }
 
     }
 
-    boardContainer.addEventListener("click", ClickHandler)
-    startButton.addEventListener("click", function() {
+
+
+    function updateScoreBoard () {
+        playerOneScoreBoard.textContent = game.playerOne();
+        playerTwoScoreBoard.textContent = game.playertwo();
+    }
+
+    function HandleRound() {
+
+        if(game.round() > 1) {
+            game.clearBoard()
+            updateScreen();
+
+        } else {
             this.disabled = true;
             restartButton.disabled = false
             updateScreen()
-    })
+        }
+    }
+
+    boardContainer.addEventListener("click", ClickHandler)
+    startButton.addEventListener("click", HandleRound)
     restartButton.addEventListener("click", function () {
         this.disabled = true;
         startButton.disabled = false
