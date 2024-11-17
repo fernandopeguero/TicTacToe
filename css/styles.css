@@ -43,6 +43,8 @@ html {
     --main-cell-dark: #78B3CE;
     --main-cell-hover: #486ea1;
 
+    --main-disabled-color: #333333;
+
     /* padding */
 
     --pd-small: 8px;
@@ -119,6 +121,11 @@ html {
     background-color: var(--main-bg-color);
   }
 
+  .start:disabled, .restart:disabled {
+    background-color: var(--main-disabled-color);
+    color: var(--main-text-color);
+    border: none;
+  }
 
 
   .players {
@@ -179,6 +186,8 @@ html {
     border: none;
     font-size: 36px;
     font-weight: bolder;
+    animation: fall 100ms pause;
+
   }
 
   .cell:hover {
