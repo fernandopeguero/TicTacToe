@@ -198,6 +198,12 @@ html {
     background-color: var(--main-bg-color);
   }
 
+  .cell:disabled {
+    background-color: var(--main-disabled-color);
+    color: var(--main-text-color);
+    transition: 500ms;
+  }
+
 }
 
 /* Media queries  */
