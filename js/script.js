@@ -87,7 +87,7 @@ function ScoreKeeper () {
         score.players[0]++;
     }
 
-    const playerTwoScore = () => {
+    const playerTwoScored = () => {
         updateRound()
         score.players[1]++;
     }
@@ -98,7 +98,7 @@ function ScoreKeeper () {
         getPlayerOneScore,
         getPlayerTwoScore,
         playerOneScored,
-        playerTwoScore,
+        playerTwoScored,
         resetScore
     }
 
@@ -191,7 +191,7 @@ function GameController(
                 if(activePlayer === players[0]){
                     scoreBoard.playerOneScored()
                 } else {
-                    scoreBoard.playerTwoScore()
+                    scoreBoard.playerTwoScored()
                 }
                 return  true;
             }
@@ -274,11 +274,12 @@ function ScreenController () {
             game.resetCounter()
             
             displayTurn.textContent = "It's a Tie";
+            UpdateRoundText();
             startButton.disabled = false;
           
 
             disabledCells();
-            UpdateRoundText();
+            
 
         }
 
@@ -300,8 +301,6 @@ function ScreenController () {
 
         if(!selectedRow) return;
         if(!selectedColumn) return;
-
-
 
         game.playRound({row: selectedRow, column: selectedColumn})
         updateScreen();
@@ -343,6 +342,7 @@ function ScreenController () {
          if(game.round() > 1) {
             game.clearBoard()
             updateScreen();
+            this.disabled = true;
 
         } else {
             this.disabled = true;
