@@ -31,6 +31,7 @@ html {
 
   body {
     height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
 
@@ -77,7 +78,7 @@ html {
   background-color: var(--main-bg-color);
   color: var(--main-text-color);
   text-align: center;
-  padding: var(--pd-medium);
+  padding: var(--pd-large);
 
   h1 {
     font-size: clamp(3rem, 0.0313rem + 9.5vw, 5.375rem);
@@ -131,7 +132,7 @@ html {
   .players {
     display: flex;
     justify-content: center;
-    gap: 24px;
+    gap: var(--pd-huge);
     text-align: center;
 
     h2, h3 {
@@ -170,7 +171,7 @@ html {
   .board {
 
     max-width: 450px;
-    height: 80%;
+    height: 90%;
     gap: var(--pd-medium);
     display: grid;
     margin: 0 auto;
