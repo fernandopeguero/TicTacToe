@@ -214,9 +214,17 @@ function ScreenController () {
     }
 
     boardContainer.addEventListener("click", ClickHandler)
-    startButton.addEventListener("click", updateScreen)
-    restartButton.addEventListener("click", resetBoard)
-
+    startButton.addEventListener("click", function() {
+            this.disabled = true;
+            restartButton.disabled = false
+            updateScreen()
+    })
+    restartButton.addEventListener("click", function () {
+        this.disabled = true;
+        startButton.disabled = false
+        resetBoard()
+    })
+    
 }
 
 
