@@ -282,7 +282,7 @@ function ScreenController () {
             displayTurn.textContent =  `You Won, player ${activePlayer.token}`;
 
             updateScoreBoard();
-
+            disabledCells()
             startButton.disabled = false;
             const currentRound = game.round()
             if( currentRound > 1) {
@@ -293,6 +293,16 @@ function ScreenController () {
 
     }
 
+    function disabledCells() {
+
+        const cells = boardContainer.children;
+
+        for(let i =0; i < cells.length; i++){
+
+            cells[i].disabled = true;
+        }
+
+    }
 
 
     function updateScoreBoard () {
