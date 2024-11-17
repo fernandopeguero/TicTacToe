@@ -94,6 +94,7 @@ function ScoreKeeper () {
 
     return {
         getRound,
+        updateRound,
         getPlayerOneScore,
         getPlayerTwoScore,
         playerOneScored,
@@ -118,6 +119,13 @@ function GameController(
     const getGameOver = () => isGameOver
 
     const scoreBoard = ScoreKeeper();
+
+    // counst how many cells have been filled to check for a tied simple solution
+    let counter  = 0;
+
+    const getCounter = () => counter
+
+    const clearCounter = () => counter = 0;
 
     const players =  [
         {
@@ -156,7 +164,8 @@ function GameController(
         isGameOver = checkWinner();
         // switch player 
         switchPlayer();
-        // reset board
+        // update count 
+        counter++;
         
         return true;
        
@@ -211,7 +220,10 @@ function GameController(
         clearBoard: clearBoard,
         round: scoreBoard.getRound,
         playerOne: scoreBoard.getPlayerOneScore,
-        playertwo: scoreBoard.getPlayerTwoScore
+        playertwo: scoreBoard.getPlayerTwoScore,
+        getCounter: getCounter,
+        nextRound: scoreBoard.updateRound,
+        resetCounter: clearCounter
        
         
     }
@@ -255,6 +267,21 @@ function ScreenController () {
 
         }))
 
+        if(game.getCounter() === 9) {
+
+        
+            game.nextRound();
+            game.resetCounter()
+            
+            displayTurn.textContent = "It's a Tie";
+            startButton.disabled = false;
+          
+
+            disabledCells();
+            UpdateRoundText();
+
+        }
+
 
     }
 
@@ -282,13 +309,12 @@ function ScreenController () {
         if(game.getGameOver()) {
             displayTurn.textContent =  `You Won, player ${activePlayer.token}`;
 
+            game.resetCounter();
             updateScoreBoard();
             disabledCells()
+            UpdateRoundText();
             startButton.disabled = false;
-            const currentRound = game.round()
-            if( currentRound > 1) {
-                startButton.textContent = `START ROUND: ${currentRound}`
-            }
+
             return;
         }
 
@@ -313,7 +339,8 @@ function ScreenController () {
 
     function HandleRound() {
 
-        if(game.round() > 1) {
+
+         if(game.round() > 1) {
             game.clearBoard()
             updateScreen();
 
@@ -321,6 +348,14 @@ function ScreenController () {
             this.disabled = true;
             restartButton.disabled = false
             updateScreen()
+        }
+    }
+
+    function UpdateRoundText() {
+        const currentRound = game.round()
+
+        if( currentRound > 1) {
+            startButton.textContent = `START ROUND: ${currentRound}`
         }
     }
 
