@@ -243,6 +243,8 @@ function ScreenController () {
 
     const playerOneScoreBoard = document.querySelector(".player_one_score");
     const playerTwoScoreBoard = document.querySelector(".player_two_score");
+
+    let playedAnimationOnes = false;
     
 
     const updateScreen = () => {
@@ -260,16 +262,26 @@ function ScreenController () {
             const button = document.createElement("button");
             button.classList.add("cell");
 
+            if(playedAnimationOnes === false){
+                button.classList.add("fade");
+                button.addEventListener('animationend', function () {
+                    this.classList.remove("fade");
+                })
+            }
+
             button.dataset.row = i;
             button.dataset.column = j;
             button.textContent = cell.getValue();
+
             boardContainer.appendChild(button);
 
         }))
 
+        playedAnimationOnes = true;
+
         if(game.getCounter() === 9) {
 
-        
+            playedAnimationOnes = false;
             game.nextRound();
             game.resetCounter()
             
@@ -307,7 +319,7 @@ function ScreenController () {
 
         if(game.getGameOver()) {
             displayTurn.textContent =  `You Won, player ${activePlayer.token}`;
-
+            playedAnimationOnes = false;
             game.resetCounter();
             updateScoreBoard();
             disabledCells()
@@ -346,9 +358,10 @@ function ScreenController () {
 
         } else {
             this.disabled = true;
-            restartButton.disabled = false
+ 
             updateScreen()
         }
+        restartButton.disabled = false
     }
 
     function UpdateRoundText() {
