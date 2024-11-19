@@ -179,6 +179,44 @@ html {
     grid-template-rows: repeat(3, 1fr);
   }
 
+  /* class use for animation purpose only */
+  .fade {
+    opacity: 0;
+    animation: fade 500ms forwards;
+
+  }
+
+  /* delay the animation a bit for each cell at start  */
+
+  .fade:nth-child(1){
+    animation-delay: 0.2s;
+  }
+  .fade:nth-child(2){
+    animation-delay: 0.4s;
+  }
+  .fade:nth-child(3){
+    animation-delay: 0.6s;
+  }
+  .fade:nth-child(4){
+    animation-delay: 0.8s;
+  }
+  .fade:nth-child(5){
+    animation-delay: 1s;
+  }
+  .fade:nth-child(6){
+    animation-delay: 1.2s;
+  }
+  .fade:nth-child(7){ 
+    animation-delay: 1.4s;
+  }
+  .fade:nth-child(8){
+    animation-delay: 1.6s;
+  }
+  .fade:nth-child(9){
+    animation-delay: 1.8s;
+  }
+
+
   .cell {
     min-width: 48px;
     min-height: 48px;
@@ -187,7 +225,6 @@ html {
     border: none;
     font-size: 36px;
     font-weight: bolder;
-    animation: fall 100ms pause;
 
   }
 
